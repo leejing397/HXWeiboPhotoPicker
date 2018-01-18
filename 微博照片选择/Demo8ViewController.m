@@ -16,10 +16,13 @@ static const CGFloat kPhotoViewMargin = 12.0;
 @property (strong, nonatomic) UIScrollView *scrollView;
 
 @property (copy, nonatomic) NSArray *selectList;
+<<<<<<< HEAD
 @property (copy, nonatomic) NSArray *imageRequestIds;
 @property (copy, nonatomic) NSArray *videoSessions;
 
 @property (strong, nonatomic) HXDatePhotoToolManager *toolManager;
+=======
+>>>>>>> parent of 89c682d... v2.1.0  优化区分icloud照片、修改写入文件方法
 @end
 
 @implementation Demo8ViewController
@@ -59,14 +62,15 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [scrollView addSubview:photoView];
     self.photoView = photoView;
     
-    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"写入" style:UIBarButtonItemStylePlain target:self action:@selector(didNavOneBtnClick)];
-    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(didNavTwoBtnClick)];
-    self.navigationItem.rightBarButtonItems = @[item1,item2];
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"写入Temp" style:UIBarButtonItemStylePlain target:self action:@selector(didNavOneBtnClick)];
+    
+    self.navigationItem.rightBarButtonItems = @[item1];
 }
 
 - (void)didNavOneBtnClick {
     [self.view showLoadingHUDText:@"写入中"];
     __weak typeof(self) weakSelf = self;
+<<<<<<< HEAD
  
     [self.toolManager writeSelectModelListToTempPathWithList:self.selectList success:^(NSArray<NSURL *> *allURL, NSArray<NSURL *> *photoURL, NSArray<NSURL *> *videoURL) {
         NSSLog(@"\nall : %@ \nimage : %@ \nvideo : %@",allURL,photoURL,videoURL);
@@ -75,30 +79,16 @@ static const CGFloat kPhotoViewMargin = 12.0;
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             NSSLog(@"%@",image);
         }
+=======
+    [HXPhotoTools selectListWriteToTempPath:self.selectList completion:^(NSArray<NSURL *> *allUrl, NSArray<NSURL *> *imageUrls, NSArray<NSURL *> *videoUrls) {
+        NSSLog(@"\nall : %@ \nimage : %@ \nvideo : %@",allUrl,imageUrls,videoUrls);
+>>>>>>> parent of 89c682d... v2.1.0  优化区分icloud照片、修改写入文件方法
         [weakSelf.view handleLoading];
     } failed:^{
         [weakSelf.view handleLoading];
         [weakSelf.view showImageHUDText:@"写入失败"];
         NSSLog(@"写入失败");
     }];
-}
-
-- (void)didNavTwoBtnClick {
-    /**
-        关于取消!!!
-        
-        图片：只能取消 正在请求资源的 不能取消正在写入临时目录的  简而言之就是图片写入取消不了 🤣🤣🤣
-             当请求到结果后是取消不了的。这个也什么影响 图片请求速度很快写入也很快只有视频比较慢
-     
-        视频：可以取消正在压缩写入文件的
-     
-     */
-    for (NSNumber *number in self.imageRequestIds) {
-        [[PHImageManager defaultManager] cancelImageRequest:[number intValue]];
-    }
-    for (AVAssetExportSession *session in self.videoSessions) {
-        [session cancelExport];
-    }
 }
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {

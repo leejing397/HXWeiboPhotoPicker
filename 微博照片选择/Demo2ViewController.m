@@ -32,6 +32,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 - (HXPhotoManager *)manager {
     if (!_manager) {
         _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+<<<<<<< HEAD
         _manager.configuration.openCamera = YES;
         _manager.configuration.lookLivePhoto = YES;
         _manager.configuration.photoMaxNum = 4;
@@ -46,6 +47,19 @@ static const CGFloat kPhotoViewMargin = 12.0;
 //        _manager.configuration.movableCropBox = YES;
 //        _manager.configuration.movableCropBoxEditSize = YES;
 //        _manager.configuration.movableCropBoxCustomRatio = CGPointMake(1, 1);
+=======
+        _manager.openCamera = YES;
+        _manager.cacheAlbum = YES;
+        _manager.lookLivePhoto = YES;
+//        _manager.outerCamera = YES;
+        _manager.cameraType = HXPhotoManagerCameraTypeSystem;
+        _manager.photoMaxNum = 9;
+        _manager.videoMaxNum = 9;
+        _manager.maxNum = 18;
+        _manager.saveSystemAblum = NO;
+//        _manager.selectTogether = NO;
+//        _manager.rowCount = 3;
+>>>>>>> parent of 89c682d... v2.1.0  优化区分icloud照片、修改写入文件方法
         
         __weak typeof(self) weakSelf = self;
 //        _manager.configuration.replaceCameraViewController = YES;
@@ -135,7 +149,42 @@ static const CGFloat kPhotoViewMargin = 12.0;
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     NSSLog(@"所有:%ld - 照片:%ld - 视频:%ld",allList.count,photos.count,videos.count);
+<<<<<<< HEAD
     NSSLog(@"所有:%@ - 照片:%@ - 视频:%@",allList,photos,videos);
+=======
+//    [HXPhotoTools getImageForSelectedPhoto:photos type:HXPhotoToolsFetchHDImageType completion:^(NSArray<UIImage *> *images) {
+//        NSSLog(@"%@",images);
+//        for (UIImage *image in images) {
+//            if (image.images.count > 0) {
+//                // 到这里了说明这个image  是个gif图
+//            }
+//        }
+//    }];
+    
+//    将HXPhotoModel模型数组转化成HXPhotoResultModel模型数组  - 已按选择顺序排序
+//    !!!!  必须是全部类型的那个数组 就是 allList 这个数组  !!!!
+//    [HXPhotoTools getSelectedListResultModel:allList complete:^(NSArray<HXPhotoResultModel *> *alls, NSArray<HXPhotoResultModel *> *photos, NSArray<HXPhotoResultModel *> *videos) {
+//        NSSLog(@"\n全部类型:%@\n照片:%@\n视频:%@",alls,photos,videos);
+//    }];
+    
+//    [HXPhotoTools getSelectedPhotosFullSizeImageUrl:photos complete:^(NSArray<NSURL *> *imageUrls) {
+//        NSSLog(@"%@",imageUrls);
+//    }];
+    
+//    HXPhotoModel *model = allList.firstObject;
+//    if ([model.avAsset isKindOfClass:[AVURLAsset class]]) {
+//        AVURLAsset *urlAsset = (AVURLAsset *)model.avAsset;
+//        NSSLog(@"%@",urlAsset.URL);
+//    }
+//    // 获取相册里照片原图URL  如果是相机拍的照片且没有保存到系统相册时 此方法无效
+//    [HXPhotoTools getFullSizeImageUrlFor:model complete:^(NSURL *url) {
+//        NSSLog(@"%@",url);
+//    }];
+    
+//    for (HXPhotoModel *model in allList) {
+//        NSLog(@"\n%@\n%@",model.thumbPhoto,model.previewPhoto);
+//    }
+>>>>>>> parent of 89c682d... v2.1.0  优化区分icloud照片、修改写入文件方法
     
     [HXPhotoTools selectListWriteToTempPath:allList requestList:^(NSArray *imageRequestIds, NSArray *videoSessions) {
         NSSLog(@"requestIds - image : %@ \nsessions - video : %@",imageRequestIds,videoSessions);
