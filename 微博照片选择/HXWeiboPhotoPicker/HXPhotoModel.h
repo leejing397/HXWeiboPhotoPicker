@@ -57,117 +57,133 @@ typedef enum : NSUInteger {
  */
 @property (strong, nonatomic) CLLocation *location;
 
-/**  是否正在下载iCloud上的资源  */
-@property (assign, nonatomic) BOOL iCloudDownloading;
-/**  iCloud下载进度  */
-@property (assign, nonatomic) CGFloat iCloudProgress;
-/**  下载iCloud的请求id  */
-@property (assign, nonatomic) PHImageRequestID iCloudRequestID;
-/**  预览界面导航栏上的大标题  */
-@property (copy, nonatomic) NSString *barTitle;
-/**  预览界面导航栏上的小标题  */
-@property (copy, nonatomic) NSString *barSubTitle;
-/**  照片PHAsset对象  */
-@property (strong, nonatomic) PHAsset *asset;
-/**  是否iCloud上的资源  */
-@property (nonatomic, assign) BOOL isICloud;
-/**  照片类型  */
-@property (assign, nonatomic) HXPhotoModelMediaType type;
-/**  照片子类型  */
-@property (assign, nonatomic) HXPhotoModelMediaSubType subType;
-/**  临时的列表小图  */
-@property (strong, nonatomic) UIImage *thumbPhoto;
-/**  临时的预览大图  */
-@property (strong, nonatomic) UIImage *previewPhoto;
-/**  当前照片所在相册的名称 */
-@property (copy, nonatomic) NSString *albumName;
-/**  视频时长 */
-@property (copy, nonatomic) NSString *videoTime;
-/**  相机拍摄之后的视频秒数 */
-@property (nonatomic, assign) NSTimeInterval videoDuration;
-/**  选择的下标 */
-@property (assign, nonatomic) NSInteger selectedIndex;
-/**  模型对应的Section */
-@property (assign, nonatomic) NSInteger dateSection;
-/**  模型对应的item */
-@property (assign, nonatomic) NSInteger dateItem;
-/**  cell是否显示过 */
-@property (assign, nonatomic) BOOL dateCellIsVisible;
-/**  是否选中 */
-@property (assign, nonatomic) BOOL selected;
-/**  模型所对应的选中下标 */
-@property (copy, nonatomic) NSString *selectIndexStr;
-/**  照片原始宽高 */
-@property (assign, nonatomic) CGSize imageSize;
-/**  预览界面按比例缩小之后的宽高 */
-@property (assign, nonatomic) CGSize endImageSize;
-/**  预览界面按比例缩小之后的宽高 */
-@property (assign, nonatomic) CGSize endDateImageSize;
-/**  3dTouch按比例缩小之后的宽高 */
-@property (assign, nonatomic) CGSize previewViewSize;
-/**  预览界面底部cell按比例缩小之后的宽高 */
-@property (assign, nonatomic) CGSize dateBottomImageSize;
-/**  拍照之后的唯一标示 */
-@property (copy, nonatomic) NSString *cameraIdentifier;
-/**  通过相机摄像的视频URL */
-@property (strong, nonatomic) NSURL *videoURL;
-/**  网络图片的地址 */
-@property (copy, nonatomic) NSURL *networkPhotoUrl;
-/**  当前图片所在相册的下标 */
-@property (assign, nonatomic) NSInteger currentAlbumIndex;
-/**  网络图片已下载的大小 */
-@property (assign, nonatomic) NSInteger receivedSize;
-/**  网络图片总的大小 */
-@property (assign, nonatomic) NSInteger expectedSize;
-/**  网络图片是否下载完成 */
-@property (assign, nonatomic) BOOL downloadComplete;
-/**  网络图片是否下载错误 */
-@property (assign, nonatomic) BOOL downloadError;
-/**  临时图片 */
-@property (strong, nonatomic) UIImage *tempImage;
-/**  行数 */
-@property (assign, nonatomic) NSInteger rowCount;
-/**  照片列表请求的资源的大小 */
-@property (assign, nonatomic) CGSize requestSize;
+
 /**
- 小图照片清晰度 越大越清晰、越消耗性能。太大可能会引起界面卡顿
- 默认设置：[UIScreen mainScreen].bounds.size.width
- 320    ->  0.8
- 375    ->  1.4
- other  ->  1.7
+ 照片PHAsset对象
  */
-@property (assign, nonatomic) CGFloat clarityScale;
+@property (strong, nonatomic) PHAsset *asset;
+@property (copy, nonatomic) NSString *localIdentifier;
+@property (nonatomic, assign) BOOL isIcloud;
+@property (nonatomic, assign) BOOL cloudIsDeletable;
+@property (strong, nonatomic) NSURL *fullSizeImageURL;
 
-@property (copy, nonatomic) NSString *fullPathToFile;;
+/**
+ 视频AVAsset对象
+ */
+@property (strong, nonatomic) AVAsset *avAsset;
+@property (strong, nonatomic) AVPlayerItem *playerItem;
 
-/**  通过image初始化 */
+/**
+ 照片类型
+ */
+@property (assign, nonatomic) HXPhotoModelMediaType type;
+@property (assign, nonatomic) HXPhotoModelMediaSubType subType;
+
+/**
+ 小图 -- 选中之后有值, 取消选中为空
+ */
+@property (strong, nonatomic) UIImage *thumbPhoto;
+
+/**
+ 预览照片 -- 选中之后有值, 取消选中为空
+ */
+@property (strong, nonatomic) UIImage *previewPhoto;
+
+/**  
+ 当前照片所在相册的名称
+ */
+@property (copy, nonatomic) NSString *albumName;
+
+/**  
+ 请求ID
+ */
+@property (assign, nonatomic) PHImageRequestID requestID;
+@property (assign, nonatomic) PHImageRequestID liveRequestID;
+
+
+/**
+ 视频时长
+ */
+@property (copy, nonatomic) NSString *videoTime;
+
+/**
+ 选择的下标
+ */
+@property (assign, nonatomic) NSInteger selectedIndex;
+
+/**
+ 是否选中
+ */
+@property (assign, nonatomic) BOOL selected;
+
+/**
+ 图片宽高
+ */
+@property (assign, nonatomic) CGSize imageSize;
+
+/**
+ 缩小之后的图片宽高
+ */
+@property (assign, nonatomic) CGSize endImageSize; 
+
+/**
+ 判断当前照片 是否关闭了livePhoto功能
+ */
+@property (assign, nonatomic) BOOL isCloseLivePhoto;
+
+/**
+ 拍照之后的唯一标示
+ */
+@property (copy, nonatomic) NSString *cameraIdentifier;
+
+/**
+ 通过相机摄像的视频URL
+ */
+@property (strong, nonatomic) NSURL *videoURL;
+
+/**  
+ 网络图片的地址
+ */
+@property (copy, nonatomic) NSString *networkPhotoUrl;
+
+/**
+ 当前图片所在相册的下标
+ */
+@property (assign, nonatomic) NSInteger currentAlbumIndex;
+
+@property (nonatomic, copy) NSString *directionStr;
+
+
+/*** 以下属性是使用HXPhotoView时自定义转场动画时所需要的属性 ***/
+
+/**
+ 选完点下一步之后在collectionView上的图片数组下标
+ */
+@property (assign, nonatomic) NSInteger endIndex;
+
+@property (assign, nonatomic) NSInteger videoIndex;
+
+/**
+ 选完点下一步之后在collectionView上的下标
+ */
+@property (assign, nonatomic) NSInteger endCollectionIndex;
+
+@property (assign, nonatomic) NSInteger fetchOriginalIndex;
+@property (assign, nonatomic) NSInteger fetchImageDataIndex;
+
+@property (assign, nonatomic) NSInteger receivedSize;
+@property (assign, nonatomic) NSInteger expectedSize;
+@property (assign, nonatomic) BOOL downloadComplete;
+@property (assign, nonatomic) BOOL downloadError;
+
+@property (strong, nonatomic) UIImage *tempImage;
+@property (assign, nonatomic) NSInteger rowCount;
+@property (assign, nonatomic) CGSize requestSize;
+
 + (instancetype)photoModelWithImage:(UIImage *)image;
-/**  通过视频地址和视频时长初始化 */
 + (instancetype)photoModelWithVideoURL:(NSURL *)videoURL videoTime:(NSTimeInterval)videoTime;
-/**  通过PHAsset对象初始化 */
 + (instancetype)photoModelWithPHAsset:(PHAsset *)asset;
-/**  通过网络图片URL对象初始化 */
-+ (instancetype)photoModelWithImageURL:(NSURL *)imageURL;
-@end
 
-@class CLGeocoder;
-@interface HXPhotoDateModel : NSObject
-/**  位置信息 - 如果当前天数内包含带有位置信息的资源则有值 */
-@property (strong, nonatomic) CLLocation *location;
-/**  日期信息 */
-@property (strong, nonatomic) NSDate *date;
-/**  日期信息字符串 */
-@property (copy, nonatomic) NSString *dateString;
-/**  位置信息字符串 */
-@property (copy, nonatomic) NSString *locationString;;
-/**  同一天的资源数组 */
-@property (copy, nonatomic) NSArray *photoModelArray;
-/**  位置信息子标题 */
-@property (copy, nonatomic) NSString *locationSubTitle;
-/**  位置信息标题 */
-@property (copy, nonatomic) NSString *locationTitle;
+@property (copy, nonatomic) NSString *fullPathToFile;
 
-@property (strong, nonatomic) NSMutableArray *locationList;
-@property (assign, nonatomic) BOOL hasLocationTitles;
-//@property (strong, nonatomic) CLGeocoder *geocoder;
 @end

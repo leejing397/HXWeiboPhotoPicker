@@ -17,5 +17,4 @@
 - (UIImage *)clipNormalizedImage:(CGFloat)scale;
 - (UIImage *)fullNormalizedImage;
 - (UIImage *)clipLeftOrRightImage:(CGFloat)scale;
-- (UIImage *)rotationImage:(UIImageOrientation)orient;
 @end

@@ -10,15 +10,15 @@
 
 @implementation NSBundle (HXWeiboPhotoPicker)
 + (instancetype)hx_photoPickerBundle {
-    static NSBundle *hxBundle = nil;
-    if (hxBundle == nil) {
+    static NSBundle *tzBundle = nil;
+    if (tzBundle == nil) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"HXWeiboPhotoPicker" ofType:@"bundle"];
         if (!path) {
             path = [[NSBundle mainBundle] pathForResource:@"HXWeiboPhotoPicker" ofType:@"bundle" inDirectory:@"Frameworks/HXWeiboPhotoPicker.framework/"];
         }
-        hxBundle = [NSBundle bundleWithPath:path];
+        tzBundle = [NSBundle bundleWithPath:path];
     }
-    return hxBundle;
+    return tzBundle;
 }
 + (NSString *)hx_localizedStringForKey:(NSString *)key
 {

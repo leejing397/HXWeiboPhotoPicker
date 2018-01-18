@@ -69,8 +69,6 @@
 @property (strong, nonatomic) UIColor *selectedTitleColor;
 - (void)cancelRequest;
 - (void)startRequestICloudAsset;
-- (void)bottomViewPrepareAnimation;
-- (void)bottomViewStartAnimation;
 @end
 
 @interface HXDatePhotoCameraViewCell : UICollectionViewCell

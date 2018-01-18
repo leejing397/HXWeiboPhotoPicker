@@ -78,18 +78,14 @@
     if (selectCount <= 0) {
         [self.doneBtn setTitle:@"完成" forState:UIControlStateNormal];
     }else {
-        if (self.manager.configuration.doneBtnShowDetail) {
-            if (!self.manager.configuration.selectTogether) {
-                if (self.manager.selectedPhotoCount > 0) {
-                    [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.photoMaxNum] forState:UIControlStateNormal];
-                }else {
-                    [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.videoMaxNum] forState:UIControlStateNormal];
-                }
+        if (!self.manager.configuration.selectTogether) {
+            if (self.manager.selectedPhotoCount > 0) {
+                [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.photoMaxNum] forState:UIControlStateNormal];
             }else {
-                [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.maxNum] forState:UIControlStateNormal];
+                [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.videoMaxNum] forState:UIControlStateNormal];
             }
         }else {
-            [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld)",selectCount] forState:UIControlStateNormal];
+            [self.doneBtn setTitle:[NSString stringWithFormat:@"完成(%ld/%ld)",selectCount,self.manager.configuration.maxNum] forState:UIControlStateNormal];
         }
     }
     [self changeDoneBtnFrame];
